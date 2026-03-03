@@ -14,15 +14,7 @@ struct Node{
 };
 
 
-// int SumBT(Node *node,int &mx){
 
-// 	if(node==NULL) return 0;
-
-// 	int left = SumBT(node->left,mx);
-// 	int right = SumBT(node->right,mx);
-// 	mx = max(mx,left+right+node->data);
-// 	return node->data+max(left,right);
-// }
 
 int main(){
 
@@ -33,7 +25,7 @@ int main(){
 	node->left->left = new Node(-10);
 	node->left->right = new Node(6);
 	node->left->left->left = new Node(7);
-	Queue<Node*> q;
+	queue<Node*> q;
 	q.push(node);
 	bool flag=false;
 	vector<vector<int>> ans;
@@ -41,18 +33,20 @@ int main(){
 	while(!q.empty()){
 
 		int len=q.size();
-		Node *node = q.front();
 		vector<int> cur;
 		for(int i=0;i<len;i++){
+
+			Node *node = q.front();
+			q.pop();
 
 			if(node->left!=NULL) q.push(node->left);
 
 			if(node->right!=NULL) q.push(node->right);
 
-			cur.push(node->data);
+			cur.push_back(node->data);
 
 		}
-		
+
 		if(flag) reverse(cur.begin(),cur.end());
 		flag = !flag;
 		ans.push_back(cur);
